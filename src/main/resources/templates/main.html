@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+</head>
+<body>
+<a href="/member/logout">로그아웃</a>
+<h2>일기 목록</h2>
+<table>
+    <tr>
+        <th>제목</th>
+        <th>날짜</th>
+    </tr>
+    <tr th:each="post: ${postList}">
+        <td th:text="${post.title}"></td>
+        <td th:text="${post.createdAt}"></td>
+</table>
+</body>
+</html>

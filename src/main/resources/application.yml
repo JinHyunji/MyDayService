@@ -1,0 +1,13 @@
+server:
+  port: 8082
+
+spring:
+  thymeleaf:
+    cache: false
+
+  jpa:
+    database-platform: org.hibernate.dialect.MariaDBDialect
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: update
