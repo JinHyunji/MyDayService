@@ -8,13 +8,24 @@
 <a href="/member/logout">로그아웃</a>
 <h2>일기 목록</h2>
 <table>
-    <tr>
-        <th>제목</th>
-        <th>날짜</th>
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>제목</th>
+            <th>작성시간</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:each="board : ${list}">
+        <td th:text="${board.id}">1</td>
+        <td>
+            <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}"></a>
+        </td>
     </tr>
-    <tr th:each="post: ${postList}">
-        <td th:text="${post.title}"></td>
-        <td th:text="${post.createdAt}"></td>
+    </tbody>
 </table>
+<form action="/postForm" method="get">
+    <input type="submit" value="+">
+</form>
 </body>
 </html>

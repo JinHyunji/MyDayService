@@ -24,11 +24,13 @@ public class MemberController {
         memberService.join(memberDTO);
         return "login";
     }
+
     @PostMapping("/member/id-check")
     public @ResponseBody String idCheck(@RequestParam("memberId") String memberId) {
         String checkResult = memberService.idCheck(memberId);
         return checkResult;
     }
+
     @PostMapping("/member/email-check")
     public @ResponseBody String emailCheck(@RequestParam("memberEmail") String memberEmail) {
         String checkResult = memberService.emailCheck(memberEmail);
@@ -46,9 +48,11 @@ public class MemberController {
         }
     }
 
-    // 메인 페이지
-    @GetMapping("/main")
-    public String showMain() {
-        return "main";
+    // 로그아웃
+    @GetMapping("/member/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "login";
     }
+
 }
