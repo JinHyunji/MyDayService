@@ -15,15 +15,24 @@
             <th>작성시간</th>
         </tr>
     </thead>
-    <tbody>
-    <tr th:each="board : ${list}">
-        <td th:text="${board.id}">1</td>
-        <td>
-            <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}"></a>
-        </td>
-    </tr>
-    </tbody>
+<!--    <tbody>-->
+<!--    <tr th:each="post : ${list}">-->
+<!--        <td th:text="${post.getId()}"></td>-->
+<!--        <td>-->
+<!--            <a th:text="${post.getTitle()}" th:href="@{/post/view(id=${post.getId()})}"></a>-->
+<!--        </td>-->
+<!--        <td th:text="${post.getCreatedAt()}"></td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
 </table>
+<!--<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">-->
+<!--    <a th:if="${page != nowPage}" th:href="@{/post/list(page=${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>-->
+<!--    <strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>-->
+<!--</th:block>-->
+<!--<form th:action="@{/post/list}" method="get">-->
+<!--    <input type="text" name="searchKeyword">-->
+<!--    <button type="submit">검색</button>-->
+<!--</form>-->
 <form action="/postForm" method="get">
     <input type="submit" value="+">
 </form>

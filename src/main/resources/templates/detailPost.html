@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>DetailPost</title>
+</head>
+<body>
+<a href="/main">X</a>
+<h3 th:text="${post.getTitle()}"></h3>
+<p th:text="${post.getCreatedAt()}"></p>
+<p th:text="${post.getContent()}"></p>
+<!--<div>-->
+<!--    <form th:action="@{'/post/' + ${post.getId()} + '/update' + }" method="post">-->
+<!--        <input type="hidden" name="id" th:value="${post.getId()}">-->
+<!--        <button type="submit">수정</button>-->
+<!--    </form>-->
+<!--    <form th:action="@{'/post/' + ${post.getId()} + '/delete' + }" method="get">-->
+<!--        <input type="hidden" name="id" th:value="${post.getId()}">-->
+<!--        <button type="submit">삭제</button>-->
+<!--    </form>-->
+<!--</div>-->
+<a th:href="@{/post/update(id=${post.getId()})}">수정</a>
+<a th:href="@{/post/delete(id=${post.getId()})}">삭제</a>
+</body>
+</html>
