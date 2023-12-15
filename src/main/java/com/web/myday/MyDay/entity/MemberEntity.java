@@ -2,39 +2,32 @@ package com.web.myday.MyDay.entity;
 
 import com.web.myday.MyDay.dto.MemberDTO;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Setter
-@Getter
+@NoArgsConstructor
+@Data
 @Table(name = "member")
 public class MemberEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    private String memberId;
-
-    @Column
-    private String memberPw;
-
-    @Column
-    private String memberName;
-
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String memberEmail;
 
-    public static MemberEntity toMemberEntity(MemberDTO memberDTO) {
-        MemberEntity memberEntity = new MemberEntity();
-        memberEntity.setMemberId(memberDTO.getMemberId());
-        memberEntity.setMemberPw(memberDTO.getMemberPw());
-        memberEntity.setMemberName(memberDTO.getMemberName());
-        memberEntity.setMemberEmail(memberDTO.getMemberEmail());
-        return memberEntity;
-    }
+    @Column(nullable = false)
+    private String memberPw;
+
+    @Column(nullable = false)
+    private String memberName;
+
+    @Column(name = "postList")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<PostEntity> postEntityList = new ArrayList<>();
+
 }

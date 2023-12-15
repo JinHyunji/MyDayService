@@ -11,42 +11,15 @@
 </head>
 <body>
 <form action="/member/join" method="post">
-  <input type="text" name="memberId" id="memberId" onblur="idCheck()" placeholder="아이디"><br>
-    <p id="idCheck-result"></p>
+    <input type="text" name="memberEmail" id="memberEmail" onblur="emailCheck()" placeholder="이메일"><br>
+    <p id="emailCheck-result"></p>
   <input type="password" name="memberPw" placeholder="비밀번호"><br>
   <input type="text" name="memberName" placeholder="이름"><br>
-  <input type="text" name="memberEmail" id="memberEmail" onblur="emailCheck()" placeholder="이메일"><br>
-    <p id="emailCheck-result"></p>
     <a href="/">취소</a>
     <input type="submit" value="완료">
 </form>
 </body>
 <script th:inline="javascript">
-    const idCheck = () => {
-        const id = document.getElementById("memberId").value;
-        const checkResult = document.getElementById("idCheck-result");
-        $.ajax({
-            // 요청방식: post, url: "id-check", 데이터: 이메일
-            type: "post",
-            url: "/member/id-check",
-            data: {
-                "memberId": id
-            },
-            success: function(res) {
-                if (res == "ok") {
-                    checkResult.style.color = "green";
-                    checkResult.innerHTML = "사용 가능한 아이디입니다.";
-                } else {
-                    checkResult.style.color = "red";
-                    checkResult.innerHTML = "이미 사용 중인 아이디입니다.";
-                }
-            },
-            error: function(err) {
-                console.log("에러발생", err);
-            }
-        });
-    }
-
     const emailCheck = () => {
         const email = document.getElementById("memberEmail").value;
         const checkResult = document.getElementById("emailCheck-result");

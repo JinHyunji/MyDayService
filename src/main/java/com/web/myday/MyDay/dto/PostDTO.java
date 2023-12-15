@@ -6,24 +6,14 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-@AllArgsConstructor
-@ToString
 public class PostDTO {
 
-    private Long id;
+    private Long postId;
     private String title;
     private String content;
     private LocalDateTime createdAt;
+    private MemberEntity member;
 
-    public static PostDTO toPostDTO(PostEntity postEntity) {
-        PostDTO postDTO = new PostDTO();
-        postDTO.setId(postEntity.getId());
-        postDTO.setTitle(postEntity.getTitle());
-        postDTO.setContent(postEntity.getContent());
-        postDTO.setCreatedAt(LocalDateTime.now());
-        return postDTO;
-    }
 }

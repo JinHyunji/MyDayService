@@ -9,30 +9,27 @@ import org.springframework.data.annotation.CreatedDate;
 import java.time.LocalDateTime;
 
 @Entity
+@NoArgsConstructor
 @Data
 @Table(name = "post")
 public class PostEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long postId;
 
-    @Column
+    @Column(nullable = false)
     private String title;
 
-    @Column
+    @Column(nullable = false)
     private String content;
 
     @Column
     @CreatedDate
     private LocalDateTime createdAt;
 
-    public static PostEntity toPostEntity(PostDTO postDTO) {
-        PostEntity postEntity = new PostEntity();
-        postEntity.setId(postDTO.getId());
-        postEntity.setTitle(postDTO.getTitle());
-        postEntity.setContent(postDTO.getContent());
-        postEntity.setCreatedAt(LocalDateTime.now());
-        return postEntity;
-    }
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private MemberEntity member;
+
 }
