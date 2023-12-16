@@ -35,8 +35,40 @@ public class PostController {
     }
 
     // 메인 화면 보여주기
-    @GetMapping("/main/{memberId}")
-    public String showMain(@PathVariable("memberId") Long memberId, Model model) {
+    @GetMapping("/main")
+    public String showMain(@RequestParam("memberId") Long memberId, Model model) {
+        model.addAttribute("memberId", memberId);
+        return "main";
+    }
+
+    // 게시글 수정 폼 보여주기
+    @GetMapping("/post/update")
+    public String showUpdatePost(@RequestParam("memberId") Long memberId,
+                                 @RequestParam("postId") Long postId,
+                                 Model model) {
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("post", postService.postView(postId));
+        return "updatePost";
+    }
+
+    // 게시글 수정
+    @PostMapping("/post/update")
+    public String updatePost(@RequestParam("memberId") Long memberId,
+                             @RequestParam("postId") Long postId,
+                             PostDTO postDTO,
+                             Model model) {
+        PostEntity postEntity = postService.updatePost(memberId, postDTO);
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("post", postEntity);
+        return "detailPost";
+    }
+
+    // 게시글 삭제
+    @GetMapping("/post/delete")
+    public String deletePost(@RequestParam("memberId") Long memberId,
+                             @RequestParam("postId") Long postId,
+                             Model model) {
+        postService.deletePost(postId);
         model.addAttribute("memberId", memberId);
         return "main";
     }

@@ -5,7 +5,7 @@
     <title>DetailPost</title>
 </head>
 <body>
-<a th:href="@{|/main/${memberId}|}">X</a>
+<a th:href="@{/main(memberId=${memberId})}">X</a>
 <h3 th:text="${post.getTitle()}"></h3>
 <p th:text="${post.getCreatedAt()}"></p>
 <p th:text="${post.getContent()}"></p>
@@ -19,7 +19,7 @@
 <!--        <button type="submit">삭제</button>-->
 <!--    </form>-->
 <!--</div>-->
-<a th:href="@{/post/update(postId=${post.getPostId()})}">수정</a>
-<a th:href="@{/post/delete(postId=${post.getPostId()})}">삭제</a>
+<a th:href="@{/post/update(memberId=${memberId}, postId=${post.getPostId()})}">수정</a>
+<a th:href="@{/post/delete(memberId=${memberId}, postId=${post.getPostId()})}">삭제</a>
 </body>
 </html>

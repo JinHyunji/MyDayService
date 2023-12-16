@@ -10,7 +10,7 @@
     <input type="hidden" name="memberId" th:value="${memberId}" />
     <input type="text" name="title" placeholder="제목"><br>
     <textarea name="content" placeholder="제목"></textarea><br>
-    <a th:href="@{|/main/${memberId}|}">취소</a>
+    <a th:href="@{/main(memberId=${memberId})}">취소</a>
     <input type="submit" value="작성">
 </form>
 

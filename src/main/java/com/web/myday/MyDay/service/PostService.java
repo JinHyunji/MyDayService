@@ -25,4 +25,21 @@ public class PostService {
         byId.get().addPost(postEntity);
         return postEntity;
     }
+
+    public PostEntity postView(Long postId) {
+        return postRepository.findById(postId).get();
+    }
+
+    public PostEntity updatePost(Long memberId, PostDTO postDTO) {
+        PostEntity postEntity = postRepository.findById(postDTO.getPostId()).get();
+        postEntity.setTitle(postDTO.getTitle());
+        postEntity.setContent(postDTO.getContent());
+        Optional<MemberEntity> byId = memberRepository.findById(memberId);
+        byId.get().addPost(postEntity);
+        return postEntity;
+    }
+
+    public void deletePost(Long postId) {
+        postRepository.deleteById(postId);
+    }
 }
