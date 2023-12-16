@@ -2,7 +2,9 @@ package com.web.myday.MyDay.controller;
 
 import com.web.myday.MyDay.dto.MemberDTO;
 import com.web.myday.MyDay.entity.MemberEntity;
+import com.web.myday.MyDay.entity.PostEntity;
 import com.web.myday.MyDay.service.MemberService;
+import com.web.myday.MyDay.service.PostService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -10,12 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @Transactional
 public class MemberController {
 
     private final MemberService memberService;
+    private final PostService postService;
 
     // 회원가입 화면 보여주기
     @GetMapping("/member/join")
@@ -44,6 +50,8 @@ public class MemberController {
     public String login(@ModelAttribute MemberDTO memberDTO, Model model) {
         MemberDTO loginResult = memberService.login(memberDTO);
         if (loginResult != null) {
+            List<PostEntity> postList = postService.postListByDes(loginResult.getId());
+            model.addAttribute("postList", postList);
             model.addAttribute("memberId", loginResult.getId());
             return "main";
         } else {

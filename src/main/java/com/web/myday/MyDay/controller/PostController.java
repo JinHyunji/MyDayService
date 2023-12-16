@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @Transactional
@@ -37,6 +39,8 @@ public class PostController {
     // 메인 화면 보여주기
     @GetMapping("/main")
     public String showMain(@RequestParam("memberId") Long memberId, Model model) {
+        List<PostEntity> postList = postService.postListByDes(memberId);
+        model.addAttribute("postList", postList);
         model.addAttribute("memberId", memberId);
         return "main";
     }
@@ -69,7 +73,19 @@ public class PostController {
                              @RequestParam("postId") Long postId,
                              Model model) {
         postService.deletePost(postId);
+        List<PostEntity> postList = postService.postListByDes(memberId);
+        model.addAttribute("postList", postList);
         model.addAttribute("memberId", memberId);
         return "main";
+    }
+
+    // 게시글 보여주기
+    @GetMapping("/post/view") // localhost:8088/post/view?id=1
+    public String postView(@RequestParam("memberId") Long memberId,
+                           @RequestParam("postId") Long postId,
+                           Model model) {
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("post", postService.postView(postId));
+        return "detailPost";
     }
 }

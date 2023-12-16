@@ -2,10 +2,12 @@ package com.web.myday.MyDay.service;
 
 import com.web.myday.MyDay.dto.MemberDTO;
 import com.web.myday.MyDay.entity.MemberEntity;
+import com.web.myday.MyDay.entity.PostEntity;
 import com.web.myday.MyDay.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service

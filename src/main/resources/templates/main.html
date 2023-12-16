@@ -15,6 +15,15 @@
             <th>작성시간</th>
         </tr>
     </thead>
+    <tbody>
+        <tr th:each="post, postStat : ${postList}">
+            <td th:text="${postStat.size - postStat.index}"></td>
+            <td>
+                <a th:text="${post.getTitle()}" th:href="@{/post/view(memberId=${memberId}, postId=${post.getPostId()})}"></a>
+            </td>
+            <td th:text="${post.getCreatedAt()}"></td>
+        </tr>
+    </tbody>
 </table>
 <form th:action="@{/postForm}" method="post">
     <input type="hidden" name="memberId" th:value="${memberId}" />
