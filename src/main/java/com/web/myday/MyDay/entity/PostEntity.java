@@ -3,7 +3,6 @@ package com.web.myday.MyDay.entity;
 import com.web.myday.MyDay.dto.PostDTO;
 import jakarta.persistence.*;
 import lombok.*;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
@@ -32,4 +31,13 @@ public class PostEntity {
     @JoinColumn(name = "member_id")
     private MemberEntity member;
 
+    public static PostEntity toPostEntity(PostDTO postDTO) {
+        PostEntity postEntity = new PostEntity();
+        postEntity.setPostId(postDTO.getPostId());
+        postEntity.setTitle(postDTO.getTitle());
+        postEntity.setContent(postDTO.getContent());
+        postEntity.setCreatedAt(LocalDateTime.now());
+        postEntity.setMember(postDTO.getMember());
+        return postEntity;
+    }
 }

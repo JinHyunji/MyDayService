@@ -30,4 +30,18 @@ public class MemberEntity {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<PostEntity> postEntityList = new ArrayList<>();
 
+    public void addPost(PostEntity postEntity) {
+        postEntityList.add(postEntity);
+        postEntity.setMember(this);
+    }
+
+    public static MemberEntity toMemberEntity(MemberDTO memberDTO) {
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setId(memberDTO.getId());
+        memberEntity.setMemberEmail(memberDTO.getMemberEmail());
+        memberEntity.setMemberPw(memberDTO.getMemberPw());
+        memberEntity.setMemberName(memberDTO.getMemberName());
+        memberEntity.setPostEntityList(memberDTO.getPostEntityList());
+        return memberEntity;
+    }
 }

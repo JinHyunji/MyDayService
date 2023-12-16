@@ -5,7 +5,7 @@
     <title>DetailPost</title>
 </head>
 <body>
-<a href="/main">X</a>
+<a th:href="@{|/main/${memberId}|}">X</a>
 <h3 th:text="${post.getTitle()}"></h3>
 <p th:text="${post.getCreatedAt()}"></p>
 <p th:text="${post.getContent()}"></p>

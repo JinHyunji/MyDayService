@@ -17,4 +17,13 @@ public class MemberDTO {
     private String memberName;
     private List<PostEntity> postEntityList = new ArrayList<>();
 
+    public static MemberDTO toMemberDTO(MemberEntity memberEntity) {
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setId(memberEntity.getId());
+        memberDTO.setMemberEmail(memberEntity.getMemberEmail());
+        memberDTO.setMemberPw(memberEntity.getMemberPw());
+        memberDTO.setMemberName(memberEntity.getMemberName());
+        memberDTO.setPostEntityList(memberEntity.getPostEntityList());
+        return memberDTO;
+    }
 }

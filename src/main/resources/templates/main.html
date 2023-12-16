@@ -16,7 +16,8 @@
         </tr>
     </thead>
 </table>
-<form action="/postForm(id=${member.getId()})" method="get">
+<form th:action="@{/postForm}" method="post">
+    <input type="hidden" name="memberId" th:value="${memberId}" />
     <input type="submit" value="+">
 </form>
 </body>
