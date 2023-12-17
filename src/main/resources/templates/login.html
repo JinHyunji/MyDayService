@@ -4,12 +4,83 @@
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
+<style>
+
+    #grid {
+        display: grid;
+        place-items: center;
+    }
+
+    .logo {
+        margin: 10px;
+        margin-top: 150px;
+        margin-bottom: 20px;
+    }
+
+    .email {
+        box-sizing: border-box;
+        margin: 10px;
+        padding: 10px;
+
+        position: static;
+        width: 280px;
+        height: 50px;
+
+        background: #FFFFFF;
+        border: 1px solid #AEAEAE;
+        border-radius: 10px;
+    }
+
+    .password {
+        box-sizing: border-box;
+        margin: 10px;
+        padding: 10px;
+
+        position: static;
+        width: 280px;
+        height: 50px;
+
+        background: #FFFFFF;
+        border: 1px solid #AEAEAE;
+        border-radius: 10px;
+    }
+
+    .join {
+        font-family: 'Lily Script One';
+        font-style: normal;
+        font-size: 14px;
+        color: #FF6969;
+    }
+
+    .login {
+        margin-left: 10px;
+        width: 60px;
+        height: 32px;
+        color: white;
+        background: #FF8989;
+        border: none;
+        border-radius: 10px;
+    }
+
+    .layout_button {
+        margin: 10px;
+        float: right;
+    }
+
+</style>
 <body>
-<form action="/member/login" method="post">
-  <input type="text" name="memberEmail" placeholder="이메일"><br>
-  <input type="password" name="memberPw" placeholder="비밀번호"><br>
-    <a href="/member/join">회원가입</a>
-  <input type="submit" value="로그인">
-</form>
+<div id="grid">
+    <div class="Logo">
+        <img class="logo" src="/static/images/MyDay.png" width="100%">
+    </div>
+    <form action="/member/login" method="post">
+        <div><input class="email" type="text" name="memberEmail" placeholder="이메일"><br></div>
+        <div><input class="password" type="password" name="memberPw" placeholder="비밀번호"><br></div>
+        <div class="layout_button">
+            <a class="join" href="/member/join">회원가입</a>
+            <input class="login" type="submit" value="로그인">
+        </div>
+    </form>
+</div>
 </body>
 </html>

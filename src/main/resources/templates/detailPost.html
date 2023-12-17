@@ -4,22 +4,101 @@
     <meta charset="UTF-8">
     <title>DetailPost</title>
 </head>
+<style>
+    #grid {
+        display: grid;
+        place-items: center;
+    }
+
+    .button_top {
+        margin: 10px;
+        width: 60%;
+    }
+
+    .logo {
+        width: 80px;
+        margin-top: 15px;
+    }
+
+    .pageOut {
+        width: 30px;
+        height: 30px;
+        color: white;
+        background: #BBBABA;
+        border: none;
+        border-radius: 50px;
+        float: right;
+        text-align:center;
+        font-size: 18px;
+    }
+
+    .layout_button {
+        display: flex;
+        width: 50%;
+    }
+
+    .title {
+    }
+
+    .content {
+        box-sizing: border-box;
+        width: 50%;
+        height: 300px;
+        background: #FFFFFF;
+        border: 1px solid #AEAEAE;
+        border-radius: 20px;
+
+    }
+    .update {
+        margin-top: 20px;
+        width: 60px;
+        height: 32px;
+        color: white;
+        background: #FF8989;
+        border: none;
+        border-radius: 10px;
+    }
+
+    .delete {
+        margin-top: 20px;
+        margin-left: 20px;
+        width: 60px;
+        height: 32px;
+        color: white;
+        background: #FF8989;
+        border: none;
+        border-radius: 10px;
+    }
+
+</style>
 <body>
-<a th:href="@{/main(memberId=${memberId})}">X</a>
-<h3 th:text="${post.getTitle()}"></h3>
-<p th:text="${post.getCreatedAt()}"></p>
-<p th:text="${post.getContent()}"></p>
-<!--<div>-->
-<!--    <form th:action="@{'/post/' + ${post.getId()} + '/update' + }" method="post">-->
-<!--        <input type="hidden" name="id" th:value="${post.getId()}">-->
-<!--        <button type="submit">수정</button>-->
-<!--    </form>-->
-<!--    <form th:action="@{'/post/' + ${post.getId()} + '/delete' + }" method="get">-->
-<!--        <input type="hidden" name="id" th:value="${post.getId()}">-->
-<!--        <button type="submit">삭제</button>-->
-<!--    </form>-->
-<!--</div>-->
-<a th:href="@{/post/update(memberId=${memberId}, postId=${post.getPostId()})}">수정</a>
-<a th:href="@{/post/delete(memberId=${memberId}, postId=${post.getPostId()})}">삭제</a>
+<div id="grid">
+    <div class="button_top">
+        <img class="logo" src="/static/images/MyDay.png">
+        <form th:action="@{/main}" method="get">
+            <input type="hidden" name="memberId" th:value="${memberId}">
+            <input class="pageOut" type="submit" value="x">
+        </form>
+    </div>
+    <div class="title"><h2 th:text="${post.getTitle()}"></h2></div>
+    <div style="width: 50%; margin-right: 20px"><p style="color: grey; text-align: right" th:text="${createdAt}"></p></div>
+    <div class="content"><p style="padding-left: 20px; padding-right: 20px" th:text="${post.getContent()}"></p></div>
+    <div class="layout_button">
+        <div style="margin-left: auto;">
+        <form th:action="@{/post/update}" method="get">
+            <input type="hidden" name="memberId" th:value="${memberId}">
+            <input type="hidden" name="postId" th:value="${post.getPostId()}">
+            <input class="update" type="submit" value="수정">
+        </form>
+        </div>
+        <div style="margin-left: 0;">
+        <form th:action="@{/post/delete}" method="get">
+            <input type="hidden" name="memberId" th:value="${memberId}">
+            <input type="hidden" name="postId" th:value="${post.getPostId()}">
+            <input class="delete" type="submit" value="삭제">
+        </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

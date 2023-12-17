@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -31,6 +32,8 @@ public class PostController {
     @PostMapping("/post/save")
     public String savePost(@ModelAttribute PostDTO postDTO, @RequestParam("memberId") Long memberId, Model model) {
         PostEntity postEntity = postService.savePost(memberId, postDTO);
+        String createdAt = postEntity.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        model.addAttribute("createdAt", createdAt);
         model.addAttribute("post", postEntity);
         model.addAttribute("memberId", memberId);
         return "detailPost";
@@ -40,6 +43,13 @@ public class PostController {
     @GetMapping("/main")
     public String showMain(@RequestParam("memberId") Long memberId, Model model) {
         List<PostEntity> postList = postService.postListByDes(memberId);
+        String[] createdAtList = new String[postList.size()];
+        for (int i = 0; i < postList.size(); i++) {
+            createdAtList[i] = postList.get(i)
+                    .getCreatedAt()
+                    .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        }
+        model.addAttribute("createdAtList", createdAtList);
         model.addAttribute("postList", postList);
         model.addAttribute("memberId", memberId);
         return "main";
@@ -62,6 +72,8 @@ public class PostController {
                              PostDTO postDTO,
                              Model model) {
         PostEntity postEntity = postService.updatePost(memberId, postDTO);
+        String createdAt = postEntity.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        model.addAttribute("createdAt", createdAt);
         model.addAttribute("memberId", memberId);
         model.addAttribute("post", postEntity);
         return "detailPost";
@@ -74,6 +86,13 @@ public class PostController {
                              Model model) {
         postService.deletePost(postId);
         List<PostEntity> postList = postService.postListByDes(memberId);
+        String[] createdAtList = new String[postList.size()];
+        for (int i = 0; i < postList.size(); i++) {
+            createdAtList[i] = postList.get(i)
+                    .getCreatedAt()
+                    .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        }
+        model.addAttribute("createdAtList", createdAtList);
         model.addAttribute("postList", postList);
         model.addAttribute("memberId", memberId);
         return "main";
@@ -84,6 +103,8 @@ public class PostController {
     public String postView(@RequestParam("memberId") Long memberId,
                            @RequestParam("postId") Long postId,
                            Model model) {
+        String createdAt = postService.postView(postId).getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        model.addAttribute("createdAt", createdAt);
         model.addAttribute("memberId", memberId);
         model.addAttribute("post", postService.postView(postId));
         return "detailPost";

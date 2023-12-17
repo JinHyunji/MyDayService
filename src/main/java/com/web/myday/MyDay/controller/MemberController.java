@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +52,13 @@ public class MemberController {
         MemberDTO loginResult = memberService.login(memberDTO);
         if (loginResult != null) {
             List<PostEntity> postList = postService.postListByDes(loginResult.getId());
+            String[] createdAtList = new String[postList.size()];
+            for (int i = 0; i < postList.size(); i++) {
+                createdAtList[i] = postList.get(i)
+                        .getCreatedAt()
+                        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            }
+            model.addAttribute("createdAtList", createdAtList);
             model.addAttribute("postList", postList);
             model.addAttribute("memberId", loginResult.getId());
             return "main";
