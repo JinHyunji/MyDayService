@@ -1,17 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>PostForm</title>
 </head>
-<body>
-<h2>일기쓰기</h2>
-<form action="/post/save" method="post">
-    <input type="text" name="title" placeholder="제목"><br>
-    <textarea name="content" placeholder="제목"></textarea><br>
-    <a href="/main">취소</a>
-    <input type="submit" value="작성">
-</form>
+<style>
+    #grid {
+        display: grid;
+        place-items: center;
+    }
 
+    .Logo {
+        margin: 10px;
+        width: 50%;
+    }
+
+    .logo {
+        width: 80px;
+        margin-top: 15px;
+    }
+
+    .title {
+        box-sizing: border-box;
+        margin: 10px;
+        padding: 10px;
+
+        position: static;
+        width: 600px;
+        height: 50px;
+
+        background: #FFFFFF;
+        border: 1px solid #AEAEAE;
+        border-radius: 10px;
+    }
+
+    .content {
+        box-sizing: border-box;
+        margin: 10px;
+        padding: 10px;
+        position: static;
+        width: 600px;
+        height: 300px;
+
+        background: #FFFFFF;
+        border: 1px solid #AEAEAE;
+        border-radius: 10px;
+    }
+
+    .layout_button {
+        margin: 10px;
+        float: right;
+    }
+
+    .cancel {
+        font-family: 'Lily Script One';
+        font-style: normal;
+        font-size: 14px;
+        color: #FF6969;
+    }
+
+    .finish {
+        margin-left: 18px;
+        width: 50px;
+        height: 32px;
+        color: white;
+        background: #FF8989;
+        border: none;
+        border-radius: 10px;
+    }
+
+</style>
+<body>
+<div id="grid">
+    <div class="Logo"><img class="logo" src="/static/images/MyDay.png"></div>
+    <div style="float: left; width:48%"><h1>일기쓰기</h1></div>
+    <form th:action="@{/post/save}" method="post">
+        <input type="hidden" name="memberId" th:value="${memberId}">
+        <div><input class="title" type="text" name="title" placeholder="제목"><br></div>
+        <div><textarea class="content" name="content" placeholder="내용"></textarea><br></div>
+        <div class="layout_button">
+            <a class="cancel" th:href="@{/main(memberId=${memberId})}">취소</a>
+            <input class="finish" type="submit" value="작성">
+        </div>
+    </form>
+</div>
 </body>
 </html>

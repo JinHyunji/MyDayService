@@ -9,44 +9,100 @@
             crossorigin="anonymous">
     </script>
 </head>
-<body>
-<form action="/member/join" method="post">
-  <input type="text" name="memberId" id="memberId" onblur="idCheck()" placeholder="아이디"><br>
-    <p id="idCheck-result"></p>
-  <input type="password" name="memberPw" placeholder="비밀번호"><br>
-  <input type="text" name="memberName" placeholder="이름"><br>
-  <input type="text" name="memberEmail" id="memberEmail" onblur="emailCheck()" placeholder="이메일"><br>
-    <p id="emailCheck-result"></p>
-    <a href="/">취소</a>
-    <input type="submit" value="완료">
-</form>
-</body>
-<script th:inline="javascript">
-    const idCheck = () => {
-        const id = document.getElementById("memberId").value;
-        const checkResult = document.getElementById("idCheck-result");
-        $.ajax({
-            // 요청방식: post, url: "id-check", 데이터: 이메일
-            type: "post",
-            url: "/member/id-check",
-            data: {
-                "memberId": id
-            },
-            success: function(res) {
-                if (res == "ok") {
-                    checkResult.style.color = "green";
-                    checkResult.innerHTML = "사용 가능한 아이디입니다.";
-                } else {
-                    checkResult.style.color = "red";
-                    checkResult.innerHTML = "이미 사용 중인 아이디입니다.";
-                }
-            },
-            error: function(err) {
-                console.log("에러발생", err);
-            }
-        });
+<style>
+
+    #grid {
+        display: grid;
+        place-items: center;
     }
 
+    .title {
+        margin-top: 100px;
+        margin-bottom: 20px;
+    }
+
+    .email {
+        box-sizing: border-box;
+        margin: 10px;
+        padding: 10px;
+
+        position: static;
+        width: 280px;
+        height: 50px;
+
+        background: #FFFFFF;
+        border: 1px solid #AEAEAE;
+        border-radius: 10px;
+    }
+    .password {
+        box-sizing: border-box;
+        margin: 10px;
+        padding: 10px;
+
+        position: static;
+        width: 280px;
+        height: 50px;
+
+        background: #FFFFFF;
+        border: 1px solid #AEAEAE;
+        border-radius: 10px;
+    }
+    .name {
+        box-sizing: border-box;
+        margin: 10px;
+        padding: 10px;
+
+        position: static;
+        width: 280px;
+        height: 50px;
+
+        background: #FFFFFF;
+        border: 1px solid #AEAEAE;
+        border-radius: 10px;
+    }
+
+    .cancel {
+        font-family: 'Lily Script One';
+        font-style: normal;
+        font-size: 14px;
+        color: #FF6969;
+    }
+
+    .finish {
+        margin-left: 10px;
+        width: 60px;
+        height: 32px;
+        color: white;
+        background: #FF8989;
+        border: none;
+        border-radius: 10px;
+    }
+
+    .layout_button {
+        margin: 10px;
+        float: right;
+    }
+
+</style>
+<body>
+<div id="grid">
+    <div class="title"><h1>회원가입</h1></div>
+    <form action="/member/join" method="post">
+        <div>
+            <input class="email" type="text" name="memberEmail" id="memberEmail" onblur="emailCheck()" placeholder="이메일"><br>
+            <p id="emailCheck-result"></p>
+        </div>
+        <div><input class="password" type="password" name="memberPw" placeholder="비밀번호"><br></div>
+        <div><input class="name" type="text" name="memberName" placeholder="이름"><br></div>
+        <div class="layout_button">
+            <a class="cancel" href="/">취소</a>
+            <input class="finish" type="submit" value="완료">
+        </div>
+    </form>
+</div>
+
+</body>
+<script th:inline="javascript">
     const emailCheck = () => {
         const email = document.getElementById("memberEmail").value;
         const checkResult = document.getElementById("emailCheck-result");

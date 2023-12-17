@@ -4,37 +4,109 @@
     <meta charset="UTF-8">
     <title>Main</title>
 </head>
+<style>
+
+    #grid {
+        display: grid;
+        place-items: center;
+    }
+
+    .logout {
+        width: 60px;
+        height: 30px;
+        color: white;
+        background: #BBBABA;
+        border: none;
+        border-radius: 50px;
+        float: right;
+        font-size: 11px;
+    }
+
+    .logo {
+        width: 80px;
+        margin-top: 15px;
+    }
+
+    .button_top {
+        margin: 10px;
+        width: 60%;
+    }
+
+    .t_left {
+        border-top: 1px solid #444444;
+        border-collapse: collapse;
+    }
+
+    .t_right {
+        border-top: 1px solid #444444;
+        border-collapse: collapse;
+    }
+
+    .button_bottom {
+        margin: 20px;
+        width: 50%;
+    }
+
+    .post {
+        margin-left: 10px;
+        width: 40px;
+        height: 40px;
+        color: white;
+        background: #FF8989;
+        border: none;
+        border-radius: 50%;
+        font-size: 30px;
+        float: right;
+    }
+
+
+
+</style>
 <body>
-<a href="/member/logout">로그아웃</a>
-<h2>일기 목록</h2>
-<table>
-    <thead>
-        <tr>
-            <th>No</th>
-            <th>제목</th>
-            <th>작성시간</th>
-        </tr>
-    </thead>
-<!--    <tbody>-->
-<!--    <tr th:each="post : ${list}">-->
-<!--        <td th:text="${post.getId()}"></td>-->
-<!--        <td>-->
-<!--            <a th:text="${post.getTitle()}" th:href="@{/post/view(id=${post.getId()})}"></a>-->
-<!--        </td>-->
-<!--        <td th:text="${post.getCreatedAt()}"></td>-->
-<!--    </tr>-->
-<!--    </tbody>-->
-</table>
-<!--<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">-->
-<!--    <a th:if="${page != nowPage}" th:href="@{/post/list(page=${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>-->
-<!--    <strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>-->
-<!--</th:block>-->
-<!--<form th:action="@{/post/list}" method="get">-->
-<!--    <input type="text" name="searchKeyword">-->
-<!--    <button type="submit">검색</button>-->
-<!--</form>-->
-<form action="/postForm" method="get">
-    <input type="submit" value="+">
-</form>
+<div id="grid">
+    <div class="button_top">
+        <img class="logo" src="/static/images/MyDay.png">
+        <form action="/member/logout" method="get">
+            <input class="logout" type="submit" value="로그아웃">
+        </form>
+    </div>
+    <div style="width: 50%; float: left"><h1>일기 목록</h1></div>
+    <div>
+        <table class="t_left" style="float:left;">
+            <thead>
+                <tr style="font-size: 22px;">
+                    <th style="width: 100px;">No</th>
+                    <th style="width: 400px;">제목</th>
+                </tr>
+            </thead>
+            <tbody style="font-size: 20px">
+                <tr th:each="post, postStat : ${postList}">
+                        <td style="text-align: center; padding: 10px" th:text="${postStat.size - postStat.index}"></td>
+                        <td style="text-align: center">
+                            <a th:text="${post.getTitle()}" th:href="@{/post/view(memberId=${memberId}, postId=${post.getPostId()})}"></a>
+                        </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="t_right" style="float:right;">
+            <thead>
+                <tr style="font-size: 22px">
+                    <th style="width: 200px;">작성시간</th>
+                </tr>
+            </thead>
+            <tbody style="font-size: 20px; color: grey">
+                <tr th:each="createdAt : ${createdAtList}">
+                    <td style="text-align: center; padding: 10px" th:text="${createdAt}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="button_bottom">
+        <form th:action="@{/postForm}" method="post">
+            <input type="hidden" name="memberId" th:value="${memberId}">
+            <input class="post" type="submit" value="+">
+        </form>
+    </div>
+</div>
 </body>
 </html>
